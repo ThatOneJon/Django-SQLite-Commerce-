@@ -38,4 +38,6 @@ def listingSite(request, Sid):
         "title" : thisListing_name,
         "pic" : thisListing_pic
     })
-    
+
+def cat(request):
+    return render(request, "sales/category.html")
