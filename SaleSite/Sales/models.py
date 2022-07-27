@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.db import models
 
 # Create your models here.
@@ -25,3 +26,7 @@ class user(models.Model):
     count = models.AutoField(auto_created = True, primary_key = True)
     username = models.CharField(max_length = 60)
     password = models.CharField(max_length = 50)
+
+class listingCategories(models.Model):
+    prodID = models.ForeignKey(sales.id)
+    category = models.CharField(max_length=50)

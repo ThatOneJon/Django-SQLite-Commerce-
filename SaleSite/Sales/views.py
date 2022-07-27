@@ -40,4 +40,8 @@ def listingSite(request, Sid):
     })
 
 def cat(request):
-    return render(request, "sales/category.html")
+    return render(request, "sales/category.html",{
+        "cats":
+    })
+
+
