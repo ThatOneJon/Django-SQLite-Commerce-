@@ -1,0 +1,47 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "{% static 'sales/styles.css' %}">
+
+    <title>{{title}}</title>
+</head>
+<body>
+    <header>
+            <h1>{{title}}</h1>
+            <div class = "nav">
+                <ul class = "navPar">
+                    <li class ="navChild"><a class = "navLink" href ="{% url 'Sales:index'%}">Home</a></li>
+                    <li class ="navChild"><a class = "navLink">Login</a></li>
+                    <li class ="navChild"><a class = "navLink">Logout</a></li>
+                    <li class ="navChild"><a class = "navLink">categories</a></li>
+                    <li class ="navChild"><a class = "navLink">watchlist</a></li>
+                    <li class ="navChild"><a class = "navLink" href ="{% url 'Sales:create'%}">create listing</a></li>
+
+                </ul>
+            </div>
+            <div id = "container">
+
+                <div id = "sidebar">
+                    <h2> WATCHLIST </h2>
+                    {% block sideBar %}
+                    {% endblock %}
+                </div>
+
+                <div id = "content">
+                    <div id = "pic">
+                        {% block pic %}
+                        {% endblock %}
+                    </div>
+                    <div id = "article">
+                        {% block article %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+    </header>
+    
+</body>
+</html>

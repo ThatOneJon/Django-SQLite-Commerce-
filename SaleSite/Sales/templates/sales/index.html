@@ -1,0 +1,22 @@
+{% extends "sales/layout.html" %}
+
+
+{% block sideBar%}
+    <h3>Login to customize a watchlist! </h3>
+{% endblock %}
+
+
+{% block pic %}
+    <img src = "../templates/entriesPic/placeholder.png" height = "100%" width = "100%">
+{% endblock %}
+
+
+{% block article %}
+    <h1>Current listings</h1>
+    <ul>
+        {% for listing in listings %}
+            <li class = "lisUL">ID: {{ listing.id }} {{listing.name}} / Description: {{listing.description}} / PRICE: {{listing.price}} $  <a href ="{% url 'Sales:listingSite' Sid=listing.id  %}"> Got to listing!</a></li>
+        {% endfor %}
+
+    </ul>
+{% endblock %}

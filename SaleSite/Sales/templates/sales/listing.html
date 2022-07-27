@@ -1,0 +1,12 @@
+{% extends "sales/layout.html" %}
+
+
+{% block pic %}
+    <img src = {{pic}} height = "100%" width = "100%">
+{% endblock %}
+
+{% block article %}
+    <h2> {{this_listing.name}} </h2>
+    <p class = "article_description"> {{this_listing.description}}</p>
+    <h3 id = "priceHead"> {{this_listing.price}} $</h3>
+{% endblock %}
