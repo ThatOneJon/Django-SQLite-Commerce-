@@ -1,1 +1,8 @@
 {% extends "sales/layout.html"%}
+
+{% block article %}
+    <h1>The Categories:</h1>
+    {% for category in Categories_all %}
+        <h2><a href="{%url 'Sales:catDetail' categ=category %}">{{category}}</a></h2>
+    {% endfor %}
+{% endblock %}

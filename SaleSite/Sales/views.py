@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django import forms
-from .models import sales, watchlist
+from Sales.models import sales, watchlist, cates
+from django.http import HttpResponse
 
 
 
@@ -40,8 +41,10 @@ def listingSite(request, Sid):
     })
 
 def cat(request):
-    return render(request, "sales/category.html",{
-        "cats":
+    return render(request, "sales/category.html", {
+        "Categories_all":cates.objects.all(),
+        "title":"Category Listing"
     })
 
-
+def catDetail(request, categ):
+    return render(request, "sales/catDetail.html")

@@ -6,7 +6,9 @@ app_name = "Sales"
 
 urlpatterns = [
     path("", views.index, name ="index"),
-    path("listing/<Sid>/", views.listingSite, name = "listingSite"),
+    path("categories/", views.cat, name = "cat"),
+    path("categories/<categ>", views.catDetail, name = "catDetail"),
     path("create", views.createListing, name ="create"),
-    path("categories", views.cat, name = "cat")
+    path("listing/<Sid>/", views.listingSite, name = "listingSite"),
+
 ]

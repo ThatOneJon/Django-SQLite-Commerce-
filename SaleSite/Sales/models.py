@@ -1,14 +1,21 @@
+#from tkinter import CASCADE
 from unicodedata import category
 from django.db import models
 
 # Create your models here.
+class cates(models.Model):
+    cate = models.CharField(max_length=40, default=None)
+
+    def __str__(self):
+        return f"{self.cate}"
+
 class sales(models.Model):
     id = models.AutoField(auto_created = True, primary_key = True)
     pic = models.CharField(max_length= 100, default = "A pic would go here")
     name = models.CharField(max_length = 100)
     description = models.CharField(max_length = 100)
-    category = models.CharField(max_length = 100)
-    price = models.IntegerField(max_length = 100)
+    category = models.ForeignKey(cates, on_delete = models.CASCADE, default=None)
+    price = models.IntegerField()
 
     def __str__(self):
 # returns a string representation of the Object
@@ -27,6 +34,3 @@ class user(models.Model):
     username = models.CharField(max_length = 60)
     password = models.CharField(max_length = 50)
 
-class listingCategories(models.Model):
-    prodID = models.ForeignKey(sales.id)
-    category = models.CharField(max_length=50)
