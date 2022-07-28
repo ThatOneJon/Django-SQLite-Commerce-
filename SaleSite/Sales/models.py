@@ -19,7 +19,7 @@ class sales(models.Model):
 
     def __str__(self):
 # returns a string representation of the Object
-        return f"{self.id} Description: {self.description} Price: {self.price}"
+        return f"Item ID: {self.id} -  Description: {self.description}   -   Price: {self.price} $$ -   category: {self.category}"
 
 class watchlist(models.Model):
     name2 = models.ForeignKey(sales, on_delete = models.CASCADE, related_name= "nameOfListing")

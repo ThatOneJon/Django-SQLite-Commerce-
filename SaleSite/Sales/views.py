@@ -47,4 +47,16 @@ def cat(request):
     })
 
 def catDetail(request, categ):
-    return render(request, "sales/catDetail.html")
+    all=sales.objects.filter(category=cates.objects.get(cate=categ))
+    if all:
+        return render(request, "sales/catDetail.html", {
+            "theListings":all,
+            "title":categ
+
+        })
+    else:
+        return render(request,"sales/catDetail.html", {
+            "title":"Nothing here"
+        })
+
+
