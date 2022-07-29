@@ -38,14 +38,9 @@ def createListing(request):
         your_description = request.POST["yourDescription"]
         your_pic = request.POST["yourPic"]
         your_category = request.POST["yourCategory"]
-        print(request.POST["yourCategory"])
+    #create it -> autoincrement works -> then add all the values, immediately after!
         new = sales()
-        new.name = your_title
-        new.price = your_price 
-        new.description = your_description 
-        new.pic = your_pic
-        #this doesn t work -> fix later, no internet
-        new.category = cates.objects.filter(cate=your_category)
+        new = sales(pic = your_pic, name = your_title, price = your_price, description = your_description, category = cates.objects.get(cate = your_category))
         new.save()
         return render(request, "sales/index.html")
 
@@ -98,9 +93,13 @@ def Login(request):
 
     elif request.method == "POST":
         user_name = request.POST["name_user"]
-        print(user_name)
         password = request.POST["passw_user"]
-        return HttpResponse("Holy cow")
+
+        if user.objects.get(username = user_name):
+            return HttpResponse("Holy cow")
+        
+        else:
+            return HttpResponse(user_name)
 
 
 
