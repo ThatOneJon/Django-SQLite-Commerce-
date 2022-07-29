@@ -10,5 +10,5 @@ urlpatterns = [
     path("categories/<categ>", views.catDetail, name = "catDetail"),
     path("create", views.createListing, name ="create"),
     path("listing/<Sid>/", views.listingSite, name = "listingSite"),
-
+    path("Login/", views.Login, name = "Login")
 ]
