@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django import forms
 from Sales.models import sales, watchlist, cates, user
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+from django.contrib.auth import authenticate, login
 
 
 
@@ -42,9 +44,8 @@ def createListing(request):
         new = sales()
         new = sales(pic = your_pic, name = your_title, price = your_price, description = your_description, category = cates.objects.get(cate = your_category))
         new.save()
-        return render(request, "sales/index.html")
+        return HttpResponseRedirect(reverse('Sales:index', current_app="Sales"))
 
-    
     else:
         return render(request, "sales/createListing.html", {
             "title" : "Create Listing",
@@ -93,15 +94,20 @@ def Login(request):
 
     elif request.method == "POST":
         user_name = request.POST["name_user"]
-        password = request.POST["passw_user"]
+        password2 = request.POST["passw_user"]
 
-        if user.objects.get(username = user_name):
-            return HttpResponse("Holy cow")
-        
+        if user.objects.filter(username = user_name) != None:
+            user2 = authenticate(username = user_name, password = password2)
+            print(user2)
+            if user2:
+                login(request, user2)
+                return HttpResponse("Holy cow")
+            else:
+                return HttpResponse("not right")
+
+
         else:
-            return HttpResponse(user_name)
-
-
+            return HttpResponse("user doesn't exist")
 
     else:
         return HttpResponse("Error 404")

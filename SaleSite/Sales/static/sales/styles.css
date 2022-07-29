@@ -17,11 +17,11 @@ h1 {
     display: flex;
     justify-content: space-around;    
     font-size: 1.3em;
+    background-color: lightblue;
 }
 
 .navLink{
     text-decoration: none;
-    color: black;
 }
 
 .navChild:hover{
@@ -42,18 +42,20 @@ h1 {
 
 
 #sidebar {
-    background-color: blue;
-    height: 100vh;
+    height: 100%;
     width: 30vw;
+    margin:0px;
+    background-color: aliceblue;
 }
 
 body {
     margin: 0;
     height: 100%;
+    width: 100%;
+    padding: 10px;
 }
 
 #content{
-    background-color: grey;
     width: 70vw;
     height: 100vh;
     display: flex;
@@ -66,8 +68,8 @@ body {
 #pic{
     width: 500px;
     height: 500px;
-    background-color: black;
     margin:10px;
+    background-color: aliceblue;
 }
 
 h2{
@@ -90,7 +92,7 @@ h3{
     width: 700px;
     height: 700px;
     margin: 10px;
-    background-color: lightslategrey;
+    background-color: aliceblue;
 }
 
 .LiCategory{
