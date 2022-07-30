@@ -28,12 +28,22 @@ def index(request):
     if request.user.is_authenticated:
         if watchlist.objects.all():
             watch_listH = watchlist.objects.all()
-        return render(request,"sales/index.html", {
-        "title" : "Welcome to the Store!",
-        "listings" : sales.objects.all(),
-        "add_toWatchlist": "Add to watchlist!",
-        "watch":watch_listH
+            return render(request,"sales/index.html", {
+            "title" : "Welcome to the Store!",
+            "listings" : sales.objects.all(),
+            "add_toWatchlist": "Add to watchlist!",
+            "watch":watch_listH
+            } )
+
+        else:
+            return render(request,"sales/index.html", {
+            "title" : "Welcome to the Store!",
+            "listings" : sales.objects.all(),
+            "add_toWatchlist": "Add to watchlist!",
+
         } )
+
+
 
 
     else:
@@ -166,29 +176,34 @@ def watchlist_function(request, prod_id):
     this_listing = sales.objects.get(pk=prod_id)
     this_price = this_listing.price
     this_name = this_listing.name
-    watch_list = watchlist(name_watch = this_name, price_watch = this_price)
+    watch_list = watchlist(name_watch = this_name, price_watch = this_price, bid=bidding_list.objects.get(theProduct=prod_id))
     watch_list.save()
     return HttpResponseRedirect(reverse("Sales:index", current_app = "Sales"))
     
 
 def bidding(request, theProd):
-    try:
-        if i:=bidding_list.objects.get(theProduct=sales.objects.get(name=theProd)):
-            if i.bid_now < int(request.POST["your_bid"]):
-                i.bid_now = int(request.POST["your_bid"])
-                i.save()
-                return HttpResponseRedirect(reverse("Sales:index", current_app = "Sales"))
+    if request.user.is_authenticated:
 
-            else:
+        try:
+            if i:=bidding_list.objects.get(theProduct=sales.objects.get(name=theProd)):
+                if i.bid_now < int(request.POST["your_bid"]):
+                    i.bid_now = int(request.POST["your_bid"])
+                    i.save()
+                    return HttpResponseRedirect(reverse("Sales:index", current_app = "Sales"))
+
+                else:
+                    return render(request, "sales/index.html", {
+                        "message":"Your Bid was not high enough!"
+                    })
+        except:
+                bid = bidding_list(theProduct=sales.objects.get(name=theProd),bid_now=request.POST["your_bid"])
+                bid.save()
                 return render(request, "sales/index.html", {
-                    "message":"Your Bid was not high enough!"
-                })
-    except:
-            bid = bidding_list(theProduct=sales.objects.get(name=theProd),bid_now=request.POST["your_bid"])
-            bid.save()
-            return render(request, "sales/index.html", {
-                    "message":"Your Bid is the current!"
-                })
-
+                        "message":"Your Bid is the current!"
+                    })
+    else:
+        return render(request, "sales/index.html", {
+        "message":"You have to be logged in!"
+        })
 
 

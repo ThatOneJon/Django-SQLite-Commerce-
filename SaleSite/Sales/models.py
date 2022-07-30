@@ -19,22 +19,23 @@ class sales(models.Model):
 
     def __str__(self):
 # returns a string representation of the Object
-        return f"Item ID: {self.id} -  Description: {self.description}   -   Price: {self.price} $$ -   category: {self.category}"
+        return f"Item ID: {self.id} -  Description: {self.description}   -   Price: {self.price} $$ -   category: {self.category} - name: {self.name}"
+
+class bidding_list(models.Model):
+    theProduct = models.ForeignKey(sales, on_delete=models.CASCADE)
+    bid_now = models.IntegerField(unique = True, default = 1)
+
+    def __str__(self):
+        return f"Article: {self.theProduct} bid: {self.bid_now}"
+
 
 class watchlist(models.Model):
     name_watch = models.CharField(max_length=80, default ="ERROR")
     price_watch = models.IntegerField(default=0)
+    bid = models.ForeignKey(bidding_list, to_field='bid_now', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Article: {self.name_watch} Price: {self.price_watch}"
-
-
-class bidding_list(models.Model):
-    theProduct = models.ForeignKey(sales, on_delete=models.CASCADE)
-    bid_now = models.IntegerField()
-
-    def __str__(self):
-        return f"Article: {self.theProduct} Price: {self.bid_now}"
+        return f"Article: {self.name_watch} Price: {self.price_watch} bid: {self.bid}"
 
 
 #class user(models.Model):
