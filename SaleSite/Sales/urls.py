@@ -10,5 +10,8 @@ urlpatterns = [
     path("categories/<categ>", views.catDetail, name = "catDetail"),
     path("create", views.createListing, name ="create"),
     path("listing/<Sid>/", views.listingSite, name = "listingSite"),
-    path("Login/", views.Login, name = "Login")
+    path("Login/", views.Login, name = "Login"),
+    path("adding_watchlist/<prod_id>", views.watchlist_function, name ="watchlist_function"),
+    path("Logout/", views.Logout, name = "Logout"),
+
 ]

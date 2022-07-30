@@ -29,8 +29,10 @@ class watchlist(models.Model):
         return f"Article: {self.name} Price: {self.price}"
 
 
-class user(models.Model):
-    count = models.AutoField(auto_created = True, primary_key = True)
-    username = models.CharField(max_length = 60, name= "username")
-    password = models.CharField(max_length = 50, name ="password")
+#class user(models.Model):
+ #   count = models.AutoField(auto_created = True, primary_key = True)
+  #  username = models.CharField(max_length = 60, name= "username")
+   # password = models.CharField(max_length = 50, name ="password")
 
+    #def __str__(self):
+     #   return f"count: {self.count}  username:{self.username} "

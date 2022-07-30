@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django import forms
-from Sales.models import sales, watchlist, cates, user
+from Sales.models import sales, watchlist, cates
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 
 
@@ -20,17 +20,26 @@ class login_user(forms.Form):
     name_user = forms.CharField(label="Username", max_length=30)
     passw_user = forms.CharField(label = "Password", max_length=40, widget = forms.PasswordInput)
     
-    class Meta:
-        model = user
-
 
 
 # Create your views here.
 def index(request):
-    return render(request,"sales/index.html", {
+
+    if request.user.is_authenticated:
+        return render(request,"sales/index.html", {
         "title" : "Welcome to the Store!",
-        "listings" : sales.objects.all()
-    } )
+        "listings" : sales.objects.all(),
+        "add_toWatchlist": "Add to watchlist!"
+        } )
+
+
+    else:
+        return render(request,"sales/index.html", {
+            "title" : "Welcome to the Store!",
+            "listings" : sales.objects.all()
+        } )
+
+
 
 
 def createListing(request):
@@ -89,19 +98,20 @@ def Login(request):
     if request.method == "GET":
         form2 = login_user()
         return render(request,"sales/login.html",{
-            "loginForm" : form2
+            "loginForm" : form2,
+            "title":"Login"
+           
         })
 
     elif request.method == "POST":
         user_name = request.POST["name_user"]
         password2 = request.POST["passw_user"]
 
-        if user.objects.filter(username = user_name) != None:
+        if user_name != None:
             user2 = authenticate(username = user_name, password = password2)
-            print(user2)
             if user2:
                 login(request, user2)
-                return HttpResponse("Holy cow")
+                return HttpResponseRedirect(reverse("Sales:index", current_app = "Sales")) 
             else:
                 return HttpResponse("not right")
 
@@ -111,3 +121,13 @@ def Login(request):
 
     else:
         return HttpResponse("Error 404")
+
+
+def Logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("Sales:index", current_app = "Sales")) 
+
+
+def watchlist_function(request, prod_id):
+    return HttpResponse(prod_id)
+    

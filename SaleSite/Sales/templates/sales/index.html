@@ -2,7 +2,7 @@
 
 
 {% block sideBar%}
-    <h3>Login to customize a watchlist! </h3>
+    
 {% endblock %}
 
 
@@ -16,6 +16,7 @@
     <ul>
         {% for listing in listings %}
             <li class = "lisUL">ID: {{ listing.id }} {{listing.name}} / Description: {{listing.description}} / PRICE: {{listing.price}} $  <a href ="{% url 'Sales:listingSite' Sid=listing.id  %}"> Got to listing!</a></li>
+            <a href = "{%url 'Sales:watchlist_function' prod_id=listing.id %}">{{add_toWatchlist}}</a>
         {% endfor %}
 
     </ul>
