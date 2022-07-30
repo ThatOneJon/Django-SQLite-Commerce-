@@ -20,4 +20,10 @@
     <h2> {{this_listing.name}} </h2>
     <p class = "article_description"> {{this_listing.description}}</p>
     <h3 id = "priceHead"> {{this_listing.price}} $</h3>
+
+    <form name = "bids" action ="views.bidding" method = "POST">
+        {% csrf_token %}
+        <input type = "integer" placeholder ="your bid">
+        <input type = "submit" value = submit>
+    </form>
 {% endblock %}

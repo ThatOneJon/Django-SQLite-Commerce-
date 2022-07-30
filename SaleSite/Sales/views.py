@@ -65,11 +65,14 @@ def createListing(request):
             if watchlist.objects.all():
                 watch_listH = watchlist.objects.all()
 
+            return render(request, "sales/createListing.html", {
+                "title" : "Create Listing",
+                "the_form" : create(),
+                "watch":watch_listH
+        })
         return render(request, "sales/createListing.html", {
             "title" : "Create Listing",
-            "the_form" : create(),
-            "watch":watch_listH
-
+            "the_form" : create()
         })
 
 
@@ -81,23 +84,33 @@ def listingSite(request, Sid):
         if watchlist.objects.all():
             watch_listH = watchlist.objects.all()
 
+            return render(request, "sales/listing.html", {
+                "this_listing" : thisListing, 
+                "title" : thisListing_name,
+                "pic" : thisListing_pic,
+                "watch":watch_listH
+            })
+
     return render(request, "sales/listing.html", {
         "this_listing" : thisListing, 
         "title" : thisListing_name,
         "pic" : thisListing_pic,
-        "watch":watch_listH
 
-    })
+        })
 
 def cat(request):
     if request.user.is_authenticated:
         if watchlist.objects.all():
             watch_listH = watchlist.objects.all()
 
+        return render(request, "sales/category.html", {
+            "Categories_all":cates.objects.all(),
+            "title":"Category Listing",
+            "watch":watch_listH
+        })
     return render(request, "sales/category.html", {
         "Categories_all":cates.objects.all(),
         "title":"Category Listing",
-        "watch":watch_listH
     })
 
 def catDetail(request, categ):
@@ -158,3 +171,6 @@ def watchlist_function(request, prod_id):
     print(this_price)
     return HttpResponseRedirect(reverse("Sales:index", current_app = "Sales"))
     
+
+def bidding(request):
+    ...
