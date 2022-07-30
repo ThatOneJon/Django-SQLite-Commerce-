@@ -20,6 +20,11 @@
 
 
 {% block article %}
+
+        {% if message %}
+            <h1>{{message}}</h1>
+        {% endif %}
+
     <h1>Current listings</h1>
     <ul>
         {% for listing in listings %}

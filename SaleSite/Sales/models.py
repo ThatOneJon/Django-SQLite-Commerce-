@@ -29,6 +29,14 @@ class watchlist(models.Model):
         return f"Article: {self.name_watch} Price: {self.price_watch}"
 
 
+class bidding_list(models.Model):
+    theProduct = models.ForeignKey(sales, on_delete=models.CASCADE)
+    bid_now = models.IntegerField()
+
+    def __str__(self):
+        return f"Article: {self.theProduct} Price: {self.bid_now}"
+
+
 #class user(models.Model):
  #   count = models.AutoField(auto_created = True, primary_key = True)
   #  username = models.CharField(max_length = 60, name= "username")

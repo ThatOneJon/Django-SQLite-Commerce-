@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django import forms
-from Sales.models import sales, watchlist, cates
+from Sales.models import sales, watchlist, cates, bidding_list
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
@@ -168,9 +168,27 @@ def watchlist_function(request, prod_id):
     this_name = this_listing.name
     watch_list = watchlist(name_watch = this_name, price_watch = this_price)
     watch_list.save()
-    print(this_price)
     return HttpResponseRedirect(reverse("Sales:index", current_app = "Sales"))
     
 
-def bidding(request):
-    ...
+def bidding(request, theProd):
+    try:
+        if i:=bidding_list.objects.get(theProduct=sales.objects.get(name=theProd)):
+            if i.bid_now < int(request.POST["your_bid"]):
+                i.bid_now = int(request.POST["your_bid"])
+                i.save()
+                return HttpResponseRedirect(reverse("Sales:index", current_app = "Sales"))
+
+            else:
+                return render(request, "sales/index.html", {
+                    "message":"Your Bid was not high enough!"
+                })
+    except:
+            bid = bidding_list(theProduct=sales.objects.get(name=theProd),bid_now=request.POST["your_bid"])
+            bid.save()
+            return render(request, "sales/index.html", {
+                    "message":"Your Bid is the current!"
+                })
+
+
+

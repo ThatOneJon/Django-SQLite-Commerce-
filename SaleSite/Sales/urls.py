@@ -13,5 +13,5 @@ urlpatterns = [
     path("Login/", views.Login, name = "Login"),
     path("adding_watchlist/<prod_id>", views.watchlist_function, name ="watchlist_function"),
     path("Logout/", views.Logout, name = "Logout"),
-
+    path("bidding/<theProd>/", views.bidding, name = "bidding"),
 ]
