@@ -26,10 +26,13 @@ class login_user(forms.Form):
 def index(request):
 
     if request.user.is_authenticated:
+        if watchlist.objects.all():
+            watch_listH = watchlist.objects.all()
         return render(request,"sales/index.html", {
         "title" : "Welcome to the Store!",
         "listings" : sales.objects.all(),
-        "add_toWatchlist": "Add to watchlist!"
+        "add_toWatchlist": "Add to watchlist!",
+        "watch":watch_listH
         } )
 
 
@@ -44,6 +47,7 @@ def index(request):
 
 def createListing(request):
     if request.method == "POST":
+
         your_title = request.POST["yourTitle"]
         your_price = request.POST["yourPrice"]
         your_description = request.POST["yourDescription"]
@@ -56,9 +60,16 @@ def createListing(request):
         return HttpResponseRedirect(reverse('Sales:index', current_app="Sales"))
 
     else:
+
+        if request.user.is_authenticated:
+            if watchlist.objects.all():
+                watch_listH = watchlist.objects.all()
+
         return render(request, "sales/createListing.html", {
             "title" : "Create Listing",
-            "the_form" : create()
+            "the_form" : create(),
+            "watch":watch_listH
+
         })
 
 
@@ -66,17 +77,27 @@ def listingSite(request, Sid):
     thisListing = sales.objects.get(id=Sid)
     thisListing_name = thisListing.name
     thisListing_pic = thisListing.pic
+    if request.user.is_authenticated:
+        if watchlist.objects.all():
+            watch_listH = watchlist.objects.all()
 
     return render(request, "sales/listing.html", {
         "this_listing" : thisListing, 
         "title" : thisListing_name,
-        "pic" : thisListing_pic
+        "pic" : thisListing_pic,
+        "watch":watch_listH
+
     })
 
 def cat(request):
+    if request.user.is_authenticated:
+        if watchlist.objects.all():
+            watch_listH = watchlist.objects.all()
+
     return render(request, "sales/category.html", {
         "Categories_all":cates.objects.all(),
-        "title":"Category Listing"
+        "title":"Category Listing",
+        "watch":watch_listH
     })
 
 def catDetail(request, categ):
@@ -113,11 +134,11 @@ def Login(request):
                 login(request, user2)
                 return HttpResponseRedirect(reverse("Sales:index", current_app = "Sales")) 
             else:
-                return HttpResponse("not right")
+                return HttpResponseRedirect(reverse("Sales:Login", current_app = "Sales")) 
 
 
         else:
-            return HttpResponse("user doesn't exist")
+                return HttpResponseRedirect(reverse("Sales:index", current_app = "Sales")) 
 
     else:
         return HttpResponse("Error 404")
@@ -129,5 +150,11 @@ def Logout(request):
 
 
 def watchlist_function(request, prod_id):
-    return HttpResponse(prod_id)
+    this_listing = sales.objects.get(pk=prod_id)
+    this_price = this_listing.price
+    this_name = this_listing.name
+    watch_list = watchlist(name_watch = this_name, price_watch = this_price)
+    watch_list.save()
+    print(this_price)
+    return HttpResponseRedirect(reverse("Sales:index", current_app = "Sales"))
     

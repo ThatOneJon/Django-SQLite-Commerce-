@@ -1,6 +1,17 @@
 {% extends "sales/layout.html" %}
 
 
+{% block sideBar %}
+    {% if watch %}
+        {% for i in watch %}
+        <ul>
+            <li>{{i}}</li>
+        </ul>
+    {% endfor %}
+    {% endif %}
+{% endblock %}
+
+
 {% block pic %}
     <img src = {{pic}} height = "100%" width = "100%">
 {% endblock %}

@@ -2,7 +2,15 @@
 
 
 {% block sideBar%}
-    
+    {% if watch %}
+        {% for i in watch %}
+            <ul>
+                <li>{{i}}</li>
+            </ul>
+        {% endfor %}
+
+
+    {% endif %}
 {% endblock %}
 
 

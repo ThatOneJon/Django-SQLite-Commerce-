@@ -22,11 +22,11 @@ class sales(models.Model):
         return f"Item ID: {self.id} -  Description: {self.description}   -   Price: {self.price} $$ -   category: {self.category}"
 
 class watchlist(models.Model):
-    name2 = models.ForeignKey(sales, on_delete = models.CASCADE, related_name= "nameOfListing")
-    price2 = models.ForeignKey(sales, on_delete = models.CASCADE)
+    name_watch = models.CharField(max_length=80, default ="ERROR")
+    price_watch = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"Article: {self.name} Price: {self.price}"
+        return f"Article: {self.name_watch} Price: {self.price_watch}"
 
 
 #class user(models.Model):

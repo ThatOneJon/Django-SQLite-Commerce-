@@ -1,6 +1,14 @@
 {% extends "sales/layout.html" %}
 
-
+{% block sideBar %}
+    {% if watch %}
+        {% for i in watch %}
+        <ul>
+            <li>{{i}}</li>
+        </ul>
+    {% endfor %}
+    {% endif %}
+{% endblock %}
 
 {% block article %}
     <form action = "{% url 'Sales:create' %}" method = "POST" id ="new_Listing" name ="create_Listing">

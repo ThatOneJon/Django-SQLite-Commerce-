@@ -1,5 +1,17 @@
 {% extends "sales/layout.html"%}
 
+{% block sideBar%}
+    {% if watch %}
+        {% for i in watch %}
+            <ul>
+                <li>{{i}}</li>
+            </ul>
+        {% endfor %}
+
+
+    {% endif %}
+{% endblock %}
+
 {% block article %}
     <h1>The Categories:</h1>
     {% for category in Categories_all %}
